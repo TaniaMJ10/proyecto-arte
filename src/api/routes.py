@@ -31,3 +31,15 @@ def handle_new_user():
     db.session.commit()
 
     return jsonify({"msg":"usuario creado con exito"}), 200
+
+
+@api.route('/login', methods=['POST'])
+def login():
+
+    email= request.json.get("email", None)
+    password= request.json.get("password", None)
+    user= User.query.filter_by(email=email).first()
+    if user is None: 
+        return jsonify({"msg":"user not found" }) , 404
+    return jsonify({"msg":"usuario logueado con exito"}), 200
+    
