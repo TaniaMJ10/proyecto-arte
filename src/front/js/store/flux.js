@@ -30,7 +30,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
-				login: async (email, password) => {
+			login: async (email, password) => {
 				try {
 				  const response = await fetch("https://3001-taniamj10-authenticatio-zo80w5feznt.ws-us106.gitpod.io/api/login", {
 					method: "POST",
@@ -40,27 +40,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify({ email, password }),
 				  });
 				  if (response.ok) {
-					// Manejar la respuesta exitosa, por ejemplo, disparar un evento de éxito
-					dispatcher.dispatch({
-					  type: "LOGIN_SUCCESS",
-					  // Puedes enviar más información si es necesario
-					});
+					alert("usuario logueado con éxito")
+					// Manejar la respuesta exitosa, por ejemplo, puedes devolver algún dato
+					return { success: true, data: await response.json() };
+					
 				  } else {
-					// Manejar errores, por ejemplo, disparar un evento de error
-					dispatcher.dispatch({
-					  type: "LOGIN_ERROR",
-					  
-					});
+					// Manejar errores, por ejemplo, puedes devolver un objeto con información del error
+					return { success: false, error: "Error en la autenticación" };
 				  }
 				} catch (error) {
 				  console.error("Error al realizar la solicitud:", error);
-				  // Manejar errores, por ejemplo, disparar un evento de error
-				  dispatcher.dispatch({
-					type: "LOGIN_ERROR",
-					// Puedes enviar más información si es necesario
-				  });
+				  // Manejar errores, por ejemplo, puedes devolver un objeto con información del error
+				  return { success: false, error: "Error en la conexión" };
 				}
 			  }
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
 		}
 	};
 };
